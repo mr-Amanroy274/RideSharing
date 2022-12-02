@@ -1,9 +1,9 @@
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Button, TextInput, View, Text } from "react-native";
 import auth from "@react-native-firebase/auth";
 import { UserContext } from "../context/UserContext";
 
-const Sms = ({phoneNumber}) => {
+const Sms = () => {
   const context = useContext(UserContext);
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
@@ -12,7 +12,7 @@ const Sms = ({phoneNumber}) => {
     return subscriber; // unsubscribe on unmount
   }, []);
   // If null, no SMS has been sent
-  const [confirm, setConfirm] = useState(null);
+  const [confirm, setConfirm] = useState(false);
 
   const [code, setCode] = useState("");
 
@@ -22,51 +22,54 @@ const Sms = ({phoneNumber}) => {
     console.log("confirmation1:");
     try {
       const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
-      console.log('confirmation value');
+      console.log("confirmation value");
       console.log(confirmation);
-      setConfirm(confirmation)
-      confirmCode();
+      setConfirm(true);
+      // confirmCode();
     } catch (err) {
-      console.log('confirmation error')
+      console.log("confirmation error");
       console.log(err);
     }
   }
-  
-  // setInterval(()=>{setConfirm(confirmation)},5000) 
+
+  // setInterval(()=>{setConfirm(confirmation)},5000)
   console.log("confirmation:");
+  if (context.data?.code) {
+    confirmCode();
+  }
   async function confirmCode() {
     try {
+      console.log(context.data?.code);
       await confirm.confirm(context.data?.code);
-      console.log('code confirmed')
+      console.log("code confirmed");
     } catch (error) {
       console.log("Invalid code.");
     }
   }
 
-  console.log(!confirm)
-  console.log('confirmatsjflsjdlfjsl')
+  console.log(confirm);
+  console.log("confirmatsjflsjdlfjsl");
   if (confirm) {
     // return (
     //   <></>
-      // <Button
-      //   title='Phone Number Sign In'
-      //   onPress={() => signInWithPhoneNumber(`+977 ${phoneNumber}`)}
-      //   // onPress={() => signInWithPhoneNumber("+977 981-6439247")}
-      // />
-      signInWithPhoneNumber(`+977 ${context.data?.number}`)
-      console.log(context.data?.number)
-      console.log('data')
+    // <Button
+    //   title='Phone Number Sign In'
+    //   onPress={() => signInWithPhoneNumber(`+977 ${phoneNumber}`)}
+    //   // onPress={() => signInWithPhoneNumber("+977 981-6439247")}
+    // />
+    signInWithPhoneNumber(`+977 ${context.data?.number}`);
+    console.log(context.data?.number);
+    console.log("data");
     // );
   }
 
   // Handle user state changes
   async function onAuthStateChanged(user) {
-    console.log('users data are here')
+    console.log("users data are here");
     console.log(user);
     // setUser(user);
     // if (initializing) setInitializing(false);
   }
-
 
   // return (
   //   <></>

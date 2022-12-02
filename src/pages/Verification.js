@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect ,useContext} from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import {
   Button,
   View,
@@ -12,11 +12,10 @@ import auth from "@react-native-firebase/auth";
 import { UserContext } from "../context/UserContext";
 
 //import sms file
-import Sms from '../config/Sms'
+import Sms from "../config/Sms";
 
-
-const Verification = ({navigation}) => {
-  const context = useContext(UserContext)
+const Verification = ({ navigation }) => {
+  const context = useContext(UserContext);
   const textInput = useRef(null);
   //   const [textInput, setTextInput] = useState(null);
   const lengthInput = 6;
@@ -28,8 +27,8 @@ const Verification = ({navigation}) => {
   const [confirm, setConfirm] = useState(null);
 
   // const [code, setCode] = useState("");
-  console.log('runq')
-  console.log(context.data?.number)
+  console.log("runq");
+  console.log(context.data?.number);
   //sms ko lagi ho
   // useEffect(() => {
   //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
@@ -37,56 +36,57 @@ const Verification = ({navigation}) => {
   //   console.log(subscriber);
   //   return subscriber; // unsubscribe on unmount
   // }, []);
-  
+
   useEffect(() => {
     // textInput?.current.focus();
     // console.log('input')
     // console.log(textInput?.current.focus())
   }, []);
-  useEffect(()=> {
+  useEffect(() => {
     clockCall = setInterval(() => {
       decrementClock();
-    },1000)
+    }, 1000);
     return () => {
       clearInterval(clockCall);
-    }
-  },[countdown])
+    };
+  }, [countdown]);
 
   const decrementClock = () => {
-    if(countdown === 0) {
+    if (countdown === 0) {
       setEnableResend(true);
-      setCountdown(0)
+      setCountdown(0);
       clearInterval(clockCall);
-    }else{
-      setCountdown(countdown-1);
+    } else {
+      setCountdown(countdown - 1);
     }
-  }
+  };
 
   const onChangeText = (val) => {
     setInternalVal(val);
-    console.log(internalVal.length)
-    if(val.length === lengthInput) {
-      console.log(typeof(val))
-      context.setData({code:val})
+    console.log(internalVal.length);
+    if (val.length === lengthInput) {
+      console.log(typeof val);
+      console.log(val);
+      console.log(internalVal);
+      context.setData({ code: val });
       // navigation.navigate('Signup')
     }
   };
 
   const onChangeNumber = () => {
-    setInternalVal('');
-    
-  }
+    setInternalVal("");
+  };
 
   const onResendOTP = () => {
-    if(enableResend) {
+    if (enableResend) {
       setCountdown(defaultCountdown);
       setEnableResend(false);
       clearInterval(clockCall);
       clockCall = setInterval(() => {
-        decrementClock()
-      },1000)
+        decrementClock();
+      }, 1000);
     }
-  }
+  };
 
   //sms ko lagi
 
@@ -112,13 +112,11 @@ const Verification = ({navigation}) => {
   //     console.log("Invalid code.");
   //   }
   // }
-  
-
 
   return (
     <View style={styles.container}>
-      <View style={{flex:0.2,padding: 10,justifyContent:'flex-end'}}>
-        <Text style={{fontSize:30}}>Verification</Text>
+      <View style={{ flex: 0.2, padding: 10, justifyContent: "flex-end" }}>
+        <Text style={{ fontSize: 30 }}>Verification</Text>
       </View>
       <KeyboardAvoidingView
         // keyboardVerticalOffset={20}
@@ -171,9 +169,11 @@ const Verification = ({navigation}) => {
                 </View>
               ))}
           </View>
-          <View style={{marginTop: 20}}>
+          <View style={{ marginTop: 20 }}>
             <Text>OTP is sent to your mobile number</Text>
-            <Text style={{textAlign:'center',fontWeight:"bold"}}>{'+977 9804804550'}</Text>
+            <Text style={{ textAlign: "center", fontWeight: "bold" }}>
+              {"+977 9804804550"}
+            </Text>
           </View>
         </View>
         <View style={styles.bottomView}>
@@ -184,9 +184,16 @@ const Verification = ({navigation}) => {
           </TouchableOpacity>
           <TouchableOpacity onPress={onResendOTP}>
             <View style={styles.btnResend}>
-              <Text style={[styles.textResend,{
-                color: enableResend? '#234DB7' : 'grey'
-              }]}>Resend OTP({countdown})</Text>
+              <Text
+                style={[
+                  styles.textResend,
+                  {
+                    color: enableResend ? "#234DB7" : "grey",
+                  },
+                ]}
+              >
+                Resend OTP({countdown})
+              </Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -202,15 +209,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#0FE3FF",
     // alignItems: 'flex-end',
-    justifyContent: 'flex-end'
-
+    justifyContent: "flex-end",
   },
   containerAvoiddingView: {
     flex: 0.8,
     alignItems: "center",
     padding: 10,
     backgroundColor: "#FFFFFF",
-    borderTopLeftRadius:60
+    borderTopLeftRadius: 60,
   },
   textTitle: {
     marginTop: 50,

@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -18,42 +18,44 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   const [data, setData] = useState(null);
   return (
-    <UserContext.Provider value={{data,setData}}>
-
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName='Login' screenOptions={{
-        headerShown: false,
-      }}>
-        <Stack.Screen
-          name='GetStarted'
-          component={GetStarted}
-          options={{ title: "get started",headerBackTitle:''  }}
+    <UserContext.Provider value={{ data, setData }}>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName='Login'
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen
+            name='GetStarted'
+            component={GetStarted}
+            options={{ title: "get started", headerBackTitle: "" }}
           />
-        <Stack.Screen
-          name='Mode'
-          component={Mode}
-          options={{ title: "mode",headerBackTitle:''  }}
-        />
-        <Stack.Screen
-          name='Signup'
-          component={Signup}
-          options={{ title: "sign up" ,headerBackTitle:'' }}
-        />
-        <Stack.Screen
-          name='Login'
-          component={Login}
-          options={{ title: "Log in",headerBackTitle:'' }}
-        />
-        <Stack.Screen
-          name='Verification'
-          component={Verification} 
-          options={{ title: "Verification",headerBackTitle:''  }}
+          <Stack.Screen
+            name='Mode'
+            component={Mode}
+            options={{ title: "mode", headerBackTitle: "" }}
           />
-      </Stack.Navigator>
-      {/* <GetStarted /> */}
-      <StatusBar style='auto' />
-    </NavigationContainer>
-</UserContext.Provider>
+          <Stack.Screen
+            name='Signup'
+            component={Signup}
+            options={{ title: "sign up", headerBackTitle: "" }}
+          />
+          <Stack.Screen
+            name='Login'
+            component={Login}
+            options={{ title: "Log in", headerBackTitle: "" }}
+          />
+          <Stack.Screen
+            name='Verification'
+            component={Verification}
+            options={{ title: "Verification", headerBackTitle: "" }}
+          />
+        </Stack.Navigator>
+        {/* <GetStarted /> */}
+        <StatusBar style='auto' />
+      </NavigationContainer>
+    </UserContext.Provider>
   );
 }
 

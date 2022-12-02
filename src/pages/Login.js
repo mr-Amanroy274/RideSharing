@@ -28,9 +28,7 @@ const Login = ({ navigation }) => {
 
   const submit = () => {
     console.log("submitted");
-    // console.log(num);
-    // formatNumber(num)
-    context.setData({ number: formatNumber(num) });
+    context.setData({ number: formatNumber(num)});
     navigation.navigate("Verification");
   };
   return (
