@@ -12,7 +12,7 @@ const Sms = () => {
     return subscriber; // unsubscribe on unmount
   }, []);
   // If null, no SMS has been sent
-  const [confirm, setConfirm] = useState(false);
+  const [confirm, setConfirm] = useState(null);
 
   const [code, setCode] = useState("");
 

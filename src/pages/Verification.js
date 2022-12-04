@@ -13,31 +13,39 @@ import { UserContext } from "../context/UserContext";
 
 //import sms file
 import Sms from "../config/Sms";
+import { ADD_CODE } from "../context/action.types";
 
 const Verification = ({ navigation }) => {
-  const context = useContext(UserContext);
+  // const context = useContext(UserContext);
+  const { state, dispatch } = useContext(UserContext);
+
   const textInput = useRef(null);
   //   const [textInput, setTextInput] = useState(null);
   const lengthInput = 6;
   let clockCall = null;
   const defaultCountdown = 30;
+  let data = '';
+  let confirm = null;
   const [internalVal, setInternalVal] = useState("");
+  const [value,setValue] = useState('');
   const [countdown, setCountdown] = useState(defaultCountdown);
   const [enableResend, setEnableResend] = useState(false);
-  const [confirm, setConfirm] = useState(null);
+  // const [confirm, setConfirm] = useState(null);
 
   // const [code, setCode] = useState("");
-  console.log("runq");
-  console.log(context.data?.number);
+  // console.log("runq");
+  // console.log(context.data?.number);
   //sms ko lagi ho
-  // useEffect(() => {
-  //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-  //   console.log("subscriber value");
-  //   console.log(subscriber);
-  //   return subscriber; // unsubscribe on unmount
-  // }, []);
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    console.log("subscriber value");
+    console.log(subscriber);
+    return subscriber; // unsubscribe on unmount
+  }, []);
 
   useEffect(() => {
+    console.log("in useeffect in varificaton");
+    console.log(state.phoneNumber);
     // textInput?.current.focus();
     // console.log('input')
     // console.log(textInput?.current.focus())
@@ -51,6 +59,14 @@ const Verification = ({ navigation }) => {
     };
   }, [countdown]);
 
+  async function onAuthStateChanged(user) {
+    console.log("users data are here");
+    console.log(user);
+    // setUser(user);
+    // if (initializing) setInitializing(false);
+  }
+
+
   const decrementClock = () => {
     if (countdown === 0) {
       setEnableResend(true);
@@ -61,20 +77,52 @@ const Verification = ({ navigation }) => {
     }
   };
 
+  async function confirmCode() {
+    console.log("confirm value");
+    // console.log(state.confirm);
+    console.log("code");
+    try {
+      console.log("confirm code validation");
+      confirm = state.confirm;
+      console.log(state.confirm);
+      // console.log(value);
+      console.log('value of data')
+      console.log(data);
+      await confirm.confirm(data);
+      console.log("code confirmed");
+    } catch (error) {
+      console.log("Invalid code.");
+    }
+  }
+
+  // const changeOtp = (val) => {
+  //   setValue(val);
+  // }
+
   const onChangeText = (val) => {
     setInternalVal(val);
-    console.log(internalVal.length);
+    // console.log(internalVal.length);
     if (val.length === lengthInput) {
-      console.log(typeof val);
-      console.log(val);
-      console.log(internalVal);
-      context.setData({ code: val });
+      // console.log(typeof val);
+      console.log('data');
+      data = val;
+      console.log(data);
+      // console.log(val);
+      console.log('otp value')
+      // console.log(internalVal);
+      // console.log(internalVal);
+      // context.setData({ code: val });
+      dispatch({
+        type: ADD_CODE,
+        code: val,
+      });
+      confirmCode();
       // navigation.navigate('Signup')
     }
   };
 
   const onChangeNumber = () => {
-    setInternalVal("");
+    navigation.navigate("Login");
   };
 
   const onResendOTP = () => {
@@ -172,7 +220,7 @@ const Verification = ({ navigation }) => {
           <View style={{ marginTop: 20 }}>
             <Text>OTP is sent to your mobile number</Text>
             <Text style={{ textAlign: "center", fontWeight: "bold" }}>
-              {"+977 9804804550"}
+              {`+977 ${state.phoneNumber}`}
             </Text>
           </View>
         </View>

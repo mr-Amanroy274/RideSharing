@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   View,
   KeyboardAvoidingView,
@@ -14,10 +14,29 @@ import {
 
 import Sms from "../config/Sms";
 import { UserContext } from "../context/UserContext";
+import auth from "@react-native-firebase/auth";
+import { ADD_CONFIRM, ADD_PHONENUMBER } from "../context/action.types";
 
 const Login = ({ navigation }) => {
   const [num, setNum] = useState(null);
-  const context = useContext(UserContext);
+  const { state, dispatch } = useContext(UserContext);
+
+  const [data,setData] = useState('');
+  // const [confirm, setConfirm] = useState(null);
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    // console.log("subscriber value");
+    // console.log(subscriber);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
+  async function onAuthStateChanged(user) {
+    // console.log("users data are here");
+    // console.log(user);
+    // setUser(user);
+    // if (initializing) setInitializing(false);
+  }
 
   const formatNumber = (num) => {
     const first = num.slice(0, 3);
@@ -26,9 +45,36 @@ const Login = ({ navigation }) => {
     return number;
   };
 
-  const submit = () => {
+  async function signInWithPhoneNumber(phoneNumber) {
+    console.log("confirmation1:");
+    try {
+      const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
+      console.log("confirmation value");
+      // console.log(confirmation);
+      dispatch({ type: ADD_CONFIRM, confirm: confirmation });
+      // confirmCode();
+    } catch (err) {
+      console.log("confirmation error");
+      console.log(err);
+    }
+  }
+
+  const sendOTP = () => {
+    // console.log('numerjsdlfjklsajdf')
+    // console.log(num);
+  
+    signInWithPhoneNumber(`+977 ${formatNumber(num)}`);
+    // console.log("data");
+  };
+
+  const submit = async() => {
     console.log("submitted");
-    context.setData({ number: formatNumber(num)});
+    // context.setData({ number: formatNumber(num)});
+    await dispatch({ type: ADD_PHONENUMBER, phoneNumber: formatNumber(num) });
+    // console.log(formatNumber(num))
+    setData(num);
+    
+    sendOTP();
     navigation.navigate("Verification");
   };
   return (
@@ -63,7 +109,7 @@ const Login = ({ navigation }) => {
               <View style={styles.loginButton}>
                 <Text style={{ fontSize: 20 }}>Log in</Text>
               </View>
-              <Sms />
+              {/* <Sms /> */}
             </TouchableOpacity>
           </View>
         </View>
@@ -112,6 +158,7 @@ const styles = StyleSheet.create({
     borderColor: "grey",
     borderBottomWidth: 1,
     width: "50%",
+    fontSize: 18,
   },
   viewButton: {
     height: 50,

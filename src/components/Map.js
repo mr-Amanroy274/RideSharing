@@ -1,91 +1,80 @@
-import React, { useReducer, useState } from "react";
-import { StatusBar } from "expo-status-bar";
+import React, { useContext,useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-// import { LinearGradient } from "expo-linear-gradient";
+import MapView, { Marker } from "react-native-maps";
+import MapViewDirections from "react-native-maps-directions";
+import tw from "twrnc";
+import { GOOGLE_MAPS_APIKEY } from "@env";
+import Geolocation from 'react-native-geolocation-service';
 
 //import files
-import GetStarted from "./src/pages/GetStarted";
-import Mode from "./src/pages/Mode";
-import Signup from "./src/pages/Signup";
-import Login from "./src/pages/Login";
-import Verification from "./src/pages/Verification";
-import { UserContext } from "./src/context/UserContext";
-import reducer from "./src/context/Reducer";
-import MapScreen from "./src/pages/MapScreen";
+import { UserContext } from "../context/UserContext";
 
-const Stack = createNativeStackNavigator();
+const Map = () => {
+  const { state, dispatch } = useContext(UserContext);
+  const [hasLocationPermission, setHasLocationPermission] = useState(null);
+  console.log(GOOGLE_MAPS_APIKEY);
+  console.log("origin");
+  console.log(state.originLocation.lat);
+  console.log(state.originLocation.lng);
+  console.log(state.originDescription);
+  console.log(typeof state.originDescription);
+  console.log("destination");
+  console.log(state.destinationLocation);
+  console.log(state.destinationDescription);
+  console.log(typeof state.destinationDescription);
 
-const initialState = {
-  code: "",
-  confirm: null,
-  phoneNumber: "",
-  originLocation: {},
-  originDescription: "",
-  destinationLocation: {},
-  destinationDescription: "",
+
+
+
+  return (
+    <MapView
+      style={tw`flex-1`}
+      // mapType='none'
+      initialRegion={{
+        latitude: 27.7172,
+        longitude: 85.324,
+        latitudeDelta: 0.015,
+        longitudeDelta: 0.015,
+      }}
+    >
+      {state?.originLocation && state.destinationLocation && (
+        <MapViewDirections
+          origin={state.originDescription}
+          destination={state.destinationDescription}
+          // origin='siraha'
+          // destination='kathmandu'
+          apikey={GOOGLE_MAPS_APIKEY}
+          strokeWidth={3}
+          strokeColor='black'
+        />
+      )}
+        {state?.destinationLocation.lat && (
+          <Marker
+            coordinate={{
+              latitude: state.destinationLocation.lat,
+              longitude: state.destinationLocation.lng,
+            }}
+            title='destination'
+            description={state.destinationDescription}
+            identifier='destination'
+          />
+        )}
+      {state?.originLocation.lat && (
+        <Marker
+          coordinate={{
+            latitude: state.originLocation.lat,
+            longitude: state.originLocation.lng,
+          }}
+          title='origin'
+          description={state.originDescription}
+          identifier='origin'
+        />
+      )}
+    </MapView>
+  );
 };
 
-export default function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  return (
-    <UserContext.Provider value={{ state, dispatch }}>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName='MapScreen'
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Stack.Screen
-            name='GetStarted'
-            component={GetStarted}
-            options={{ title: "get started", headerBackTitle: "" }}
-          />
-          <Stack.Screen
-            name='Mode'
-            component={Mode}
-            options={{ title: "mode", headerBackTitle: "" }}
-          />
-          <Stack.Screen
-            name='Signup'
-            component={Signup}
-            options={{ title: "sign up", headerBackTitle: "" }}
-          />
-          <Stack.Screen
-            name='Login'
-            component={Login}
-            options={{ title: "Log in", headerBackTitle: "" }}
-          />
-          <Stack.Screen
-            name='Verification'
-            component={Verification}
-            options={{ title: "Verification", headerBackTitle: "" }}
-          />
-          <Stack.Screen
-            name='MapScreen'
-            component={MapScreen}
-            options={{ title: "MapScreen", headerBackTitle: "" }}
-          />
-        </Stack.Navigator>
-        {/* <GetStarted /> */}
-        <StatusBar style='auto' />
-      </NavigationContainer>
-    </UserContext.Provider>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#0EFF79",
-    // alignItems: "center",
-    // justifyContent: "flex-end",
-    // paddingBottom: 50
-    // backgroundColor: 'linear-gradient(326.68deg, #00F5FF 0%, #0EFF79 70.34%)'
-  },
-});
+export default Map;
 
 // import React, { useState, useEffect } from "react";
 // import {
@@ -96,6 +85,7 @@ const styles = StyleSheet.create({
 //   Dimensions,
 //   StatusBar,
 //   TextInput,
+//   PermissionsAndroid,
 //   TouchableWithoutFeedback,
 //   Text,
 // } from "react-native";
@@ -104,7 +94,8 @@ const styles = StyleSheet.create({
 // import tw from "twrnc";
 // // import { useFonts } from "expo-font";
 
-// export default function App() {
+// export default function Map() {
+//   console.log("map");
 //   const [location, setLocation] = useState({});
 //   const [errorMsg, setErrorMsg] = useState(null);
 //   const [coords, setCoords] = useState(null);
@@ -198,7 +189,7 @@ const styles = StyleSheet.create({
 //           >
 //             <Image
 //               style={[styles.tinycar]}
-//               source={require("./assets/car.png")}
+//               source={require("../../assets/car.png")}
 //             />
 //             {/* <Image style={styles.tinycar} source={require('./assets/motorbike.png')} /> */}
 //           </View>
@@ -211,7 +202,7 @@ const styles = StyleSheet.create({
 //           >
 //             <Image
 //               style={styles.tinycar}
-//               source={require("./assets/motorbike.png")}
+//               source={require("../../assets/motorbike.png")}
 //             />
 //           </View>
 //         </View>
@@ -247,7 +238,7 @@ const styles = StyleSheet.create({
 //         <Image
 //           style={{ height: 50, width: 50, borderRadius: 25 }}
 //           resizeMode='contain'
-//           source={require("./assets/images.jpeg")}
+//           source={require("../../assets/images.jpeg")}
 //         />
 //       </View>
 //     </SafeAreaView>
