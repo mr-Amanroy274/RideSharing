@@ -14,6 +14,10 @@ import Verification from "./src/pages/Verification";
 import { UserContext } from "./src/context/UserContext";
 import reducer from "./src/context/Reducer";
 import MapScreen from "./src/pages/MapScreen";
+import Form from "./src/pages/Form";
+import VehicleOption from "./src/pages/VehicleOption";
+import OfferRideScreen from "./src/pages/OfferRideScreen";
+import LicenseRegistration from "./src/pages/LicenseRegistration";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,7 +29,7 @@ const initialState = {
   originDescription: "",
   destinationLocation: {},
   destinationDescription: "",
-  currentLocation:{}
+  currentLocation: {},
 };
 
 export default function App() {
@@ -68,6 +72,26 @@ export default function App() {
             name='MapScreen'
             component={MapScreen}
             options={{ title: "MapScreen", headerBackTitle: "" }}
+          />
+          <Stack.Screen
+            name='Form'
+            component={Form}
+            options={{ title: "Form", headerBackTitle: "" }}
+          />
+          <Stack.Screen
+            name='VehicleOption'
+            component={VehicleOption}
+            options={{ title: "VehicleOption", headerBackTitle: "" }}
+          />
+          <Stack.Screen
+            name='OfferRideScreen'
+            component={OfferRideScreen}
+            options={{ title: "OfferRideScreen", headerBackTitle: "" }}
+          />
+          <Stack.Screen
+            name='LicenseRegistration'
+            component={LicenseRegistration}
+            options={{ title: "LicenseRegistration", headerBackTitle: "" }}
           />
         </Stack.Navigator>
         {/* <GetStarted /> */}

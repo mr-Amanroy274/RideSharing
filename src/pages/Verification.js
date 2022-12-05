@@ -115,7 +115,7 @@ const Verification = ({ navigation }) => {
   };
 
   const onChangeNumber = () => {
-    navigation.navigate("Login");
+    navigation.goBack();
   };
 
   const onResendOTP = () => {

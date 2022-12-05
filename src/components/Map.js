@@ -9,115 +9,51 @@ import Geolocation from "react-native-geolocation-service";
 //import files
 import { UserContext } from "../context/UserContext";
 
-const Map = ({ lat = 27.661904, lng = 85.3338103 }) => {
-  const { state, dispatch } = useContext(UserContext);
-  const [hasLocationPermission, setHasLocationPermission] = useState(false);
-  // console.log(GOOGLE_MAPS_APIKEY);
+const Map = ({ lat = 27.7172, lng = 85.324 }) => {
+  const { state } = useContext(UserContext);
+  
   console.log("origin");
   console.log(lat);
   console.log(lng);
-  // console.log(state.originLocation.lat);
-  // console.log(state.originLocation.lng);
-  // console.log(state.originDescription);
-  // console.log(typeof state.originDescription);
-  // console.log("destination");
-  // console.log(state.destinationLocation);
-  // console.log(state.destinationDescription);
-  // console.log(typeof state.destinationDescription);
-
-  //for background location
-  //PermissionsAndroid.PERMISSIONS.ACCESS_BACKGROUND_LOCATION
-
-  // useEffect(() => {
-  //   requestPermission();
-  // }, []);
-  // // useEffect(() => {
-  // //   hasLocation();
-
-  // // })
-  // const requestPermission = async () => {
-  //   try {
-  //     const granted = await PermissionsAndroid.request(
-  //       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-  //       {
-  //         title: "Cool Photo App Camera Permission",
-  //         message:
-  //           "Cool Photo App needs access to your camera " +
-  //           "so you can take awesome pictures.",
-  //         buttonNeutral: "Ask Me Later",
-  //         buttonNegative: "Cancel",
-  //         buttonPositive: "OK",
-  //       }
-  //     );
-  //     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-  //       // setHasLocationPermission(true);
-  //       console.log("You can use the camera");
-  //       Geolocation.getCurrentPosition(
-  //         (position) => {
-  //             console.log(position);
-  //             console.log(position.coords.latitude);
-  //             setCurrent({
-  //                 latitude: position.coords.lalitude,
-  //                 longitude: position.coords.latitude,
-  //               });
-  //               dispatch({ type: "ADD_CURRENT_LOCATION", location: current });
-  //             },
-  //             (error) => {
-  //                 // See error code charts below.
-  //       console.log(error.code, error.message);
-  //     },
-  //     { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-  //   );
-  //     } else {
-  //       console.log("Camera permission denied");
-  //     }
-  //   } catch (err) {
-  //     console.warn(err);
-  //   }
-  // };
-
-  // const hasLocation = () => {
-  //   if (hasLocationPermission) {
-  //       Geolocation.getCurrentPosition(
-  //           (position) => {
-  //               console.log(position);
-  //               console.log(position.coords.latitude);
-  //               setCurrent({
-  //                   latitude: position.coords.lalitude,
-  //                   longitude: position.coords.latitude,
-  //                 });
-  //                 dispatch({ type: "ADD_CURRENT_LOCATION", location: current });
-  //               },
-  //               (error) => {
-  //                   // See error code charts below.
-  //         console.log(error.code, error.message);
-  //       },
-  //       { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-  //     );
-  //   }
-  // }
-
+  
+  const initialRegion = {
+    latitude: 27.7172,
+    longitude: 85.324,
+    latitudeDelta: 0.005,
+    longitudeDelta: 0.005,
+  };
+  
+  const getInitialState = {
+    latitude: 27.7172,
+    longitude: 85.324,
+    latitudeDelta: 0.005,
+    longitudeDelta: 0.005,
+  };
+  
+  const onRegionChange = () => {
+    console.log('region changed')
+    return {
+      latitude: lat,
+      longitude: lng,
+      latitudeDelta: 0.005,
+      longitudeDelta: 0.005,
+    };
+  };
+  const [data, setData] = useState(getInitialState);
+  
   return (
     <MapView
       style={tw`flex-1`}
-      // mapType='none'
-      // initialRegion={{
-      //   latitude: 27.7172,
-      //   longitude: 85.324,
-      //   latitudeDelta: 0.005,
-      //   longitudeDelta: 0.005,
-      // }}
-      initialRegion={{
-        latitude: 27.7172,
-        longitude: 85.324,
-        latitudeDelta: 0.005,
-        longitudeDelta: 0.005,
-      }}
+      region={data}
+      // onRegionChange={onRegionChange}
+      // initialRegion={data}
     >
       {(lat || state?.originLocation) && state.destinationLocation && (
         <MapViewDirections
           origin={
-            (lat && lng) ? ({ latitude: lat, longitude: lng }) : state.originDescription
+            lat && lng
+              ? { latitude: lat, longitude: lng }
+              : state.originDescription
           }
           // origin={state.originDescription}
           destination={state.destinationDescription}
