@@ -30,7 +30,7 @@ const GooglePlaces = ({placeholder,path}) => {
         minLength={2}
         enablePoweredByContainer={false}
         query={{
-          key: "AIzaSyAe5nZqsptDMSscHp3YScJcBGHq94awrc8",
+          key: GOOGLE_MAPS_APIKEY,
           language: "en",
         }}
         // currentLocation={true}

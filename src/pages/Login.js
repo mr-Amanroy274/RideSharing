@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import Sms from "../config/Sms";
+import { sendOTP } from "./Sms";
 import { UserContext } from "../context/UserContext";
 import auth from "@react-native-firebase/auth";
 import { ADD_CONFIRM, ADD_PHONENUMBER } from "../context/action.types";
@@ -21,22 +21,23 @@ const Login = ({ navigation }) => {
   const [num, setNum] = useState(null);
   const { state, dispatch } = useContext(UserContext);
 
-  const [data,setData] = useState('');
+  let data = null;
   // const [confirm, setConfirm] = useState(null);
 
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    // console.log("subscriber value");
-    // console.log(subscriber);
-    return subscriber; // unsubscribe on unmount
-  }, []);
+ 
+  // useEffect(() => {
+  //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+  //   // console.log("subscriber value");
+  //   // console.log(subscriber);
+  //   return subscriber; // unsubscribe on unmount
+  // }, []);
 
-  async function onAuthStateChanged(user) {
-    // console.log("users data are here");
-    // console.log(user);
-    // setUser(user);
-    // if (initializing) setInitializing(false);
-  }
+  // async function onAuthStateChanged(user) {
+  //   // console.log("users data are here");
+  //   // console.log(user);
+  //   // setUser(user);
+  //   // if (initializing) setInitializing(false);
+  // }
 
   const formatNumber = (num) => {
     const first = num.slice(0, 3);
@@ -45,36 +46,36 @@ const Login = ({ navigation }) => {
     return number;
   };
 
-  async function signInWithPhoneNumber(phoneNumber) {
-    console.log("confirmation1:");
-    try {
-      const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
-      console.log("confirmation value");
-      // console.log(confirmation);
-      dispatch({ type: ADD_CONFIRM, confirm: confirmation });
-      // confirmCode();
-    } catch (err) {
-      console.log("confirmation error");
-      console.log(err);
-    }
-  }
+  // async function signInWithPhoneNumber(phoneNumber) {
+  //   console.log("confirmation1:");
+  //   try {
+  //     const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
+  //     console.log("confirmation value");
+  //     // console.log(confirmation);
+  //     dispatch({ type: ADD_CONFIRM, confirm: confirmation });
+  //     // confirmCode();
+  //   } catch (err) {
+  //     console.log("confirmation error");
+  //     console.log(err);
+  //   }
+  // }
 
-  const sendOTP = () => {
-    // console.log('numerjsdlfjklsajdf')
-    // console.log(num);
-  
-    signInWithPhoneNumber(`+977 ${formatNumber(num)}`);
-    // console.log("data");
-  };
+  // const sendOTP = () => {
+  //   // console.log('numerjsdlfjklsajdf')
+  //   // console.log(num);
 
-  const submit = async() => {
+  //   signInWithPhoneNumber(`+977 ${formatNumber(num)}`);
+  //   // console.log("data");
+  // };
+
+  const submit = async () => {
     console.log("submitted");
     // context.setData({ number: formatNumber(num)});
     await dispatch({ type: ADD_PHONENUMBER, phoneNumber: formatNumber(num) });
-    // console.log(formatNumber(num))
-    setData(num);
-    
-    sendOTP();
+    data = formatNumber(num);
+    console.log(data);
+    // setNum(formatNumber(num));
+    sendOTP(data);
     navigation.navigate("Verification");
   };
   return (
@@ -83,8 +84,12 @@ const Login = ({ navigation }) => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       > */}
       <View style={styles.switch}>
-        <Text style={styles.text}>Log in</Text>
-        <Text style={styles.text}>Sign up</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
+          <Text style={styles.text}>Sign up</Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text style={[styles.text, styles.borderBottom]}>Log in</Text>
+        </TouchableOpacity>
       </View>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.containerLogin}>
@@ -135,8 +140,11 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 30,
     paddingRight: 20,
-    opacity: 0.5,
     // fontWeight: "bold",
+  },
+  borderBottom: {
+    borderColor: "#ffffff",
+    borderBottomWidth: 3,
   },
   containerLogin: {
     backgroundColor: "white",

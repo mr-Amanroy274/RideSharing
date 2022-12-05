@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState,useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -7,29 +7,91 @@ import {
   TouchableOpacity,
   TextInput,
   KeyboardAvoidingView,
+  PermissionsAndroid
 } from "react-native";
 import tw from "twrnc";
 import Map from "../components/Map";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import Geolocation from "react-native-geolocation-service";
+
 // import { GOOGLE_MAPS_APIKEY } from "@env";
 import GooglePlaces from "../components/GooglePlaces";
 // import MapView from "react-native-maps";
 
 //import files
+import { UserContext } from "../context/UserContext";
 import NavigationCard from "../components/NavigationCard";
 import car from "../.././assets/car.png";
 import motorbike from "../.././assets/motorbike.png";
 
 const MapScreen = () => {
   const Stack = createNativeStackNavigator();
+  const { state, dispatch } = useContext(UserContext);
+  const [currentLatitude, setCurrentLatitude] = useState(null);
+  const [currentLongitude, setCurrentLongitude] = useState(null);
+
   const [carSelected, setCarSelected] = useState(false);
   const [bikeSelected, setBikeSelected] = useState(false);
+
+   
+  useEffect(() => {
+    requestPermission();
+  }, []);
+  // useEffect(() => {
+  //   hasLocation();
+    
+
+  // })
+  const requestPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: "Cool Photo App Camera Permission",
+          message:
+            "Cool Photo App needs access to your camera " +
+            "so you can take awesome pictures.",
+          buttonNeutral: "Ask Me Later",
+          buttonNegative: "Cancel",
+          buttonPositive: "OK",
+        }
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        // setHasLocationPermission(true);
+        console.log("You can use the camera");
+        Geolocation.getCurrentPosition(
+          (position) => {
+              console.log(position);
+              console.log('latitude')
+              console.log(position.coords.latitude);
+              console.log('longitude')
+              console.log(position.coords.longitude);
+             setCurrentLatitude(position.coords.latitude);
+             setCurrentLongitude(position.coords.longitude);
+                dispatch({ type: "ADD_CURRENT_LOCATION", location: {currentLatitude,currentLongitude} });
+              },
+              (error) => {
+                  // See error code charts below.
+        console.log(error.code, error.message);
+      },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+    );
+      } else {
+        console.log("Camera permission denied");
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
 
   const CarSelected = () => {
     setCarSelected(true);
     setBikeSelected(false);
+    console.log('curent value')
+    console.log(currentLatitude);
+    console.log(currentLongitude);
   };
 
   const BikeSelected = () => {
@@ -39,7 +101,7 @@ const MapScreen = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <Map style={styles.map} />
+      <Map style={styles.map} lat={currentLatitude} lng={currentLongitude} />
       <View
         style={
           carSelected || bikeSelected ? styles.selected : styles.notSeleted

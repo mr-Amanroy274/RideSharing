@@ -25,6 +25,7 @@ const initialState = {
   originDescription: "",
   destinationLocation: {},
   destinationDescription: "",
+  currentLocation:{}
 };
 
 export default function App() {
@@ -33,7 +34,7 @@ export default function App() {
     <UserContext.Provider value={{ state, dispatch }}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName='MapScreen'
+          initialRouteName='GetStarted'
           screenOptions={{
             headerShown: false,
           }}

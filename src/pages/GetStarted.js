@@ -19,7 +19,7 @@ const GetStarted = ({ navigation }) => {
           buttonColor='white'
           textColor='black'
           color='white'
-          onPress={() => navigation.navigate("MapScreen")}
+          onPress={() => navigation.navigate("Signup")}
           style={styles.button}
         >
           Get Started

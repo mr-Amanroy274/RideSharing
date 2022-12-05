@@ -6,6 +6,7 @@ import {
   ADD_ORIGIN_DESCRIPTION,
   ADD_DESTINATION_LOCATION,
   ADD_DESTINATION_DESCRIPTION,
+  ADD_CURRENT_LOCATION
 } from "./action.types";
 
 export default (state, action) => {
@@ -26,7 +27,9 @@ export default (state, action) => {
       return { ...state, destinationLocation: action.location };
     case ADD_DESTINATION_DESCRIPTION:
       return { ...state, destinationDescription: action.description };
-   
+      case ADD_CURRENT_LOCATION:
+        return { ...state, currentLocation: action.location };
+     
       default:
       return state;
   }

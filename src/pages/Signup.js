@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   KeyboardAvoidingView,
@@ -12,9 +12,31 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+import { UserContext } from "../context/UserContext";
+import { sendOTP } from "./Sms";
+
+import { ADD_CONFIRM, ADD_PHONENUMBER } from "../context/action.types";
+
 const Login = ({ navigation }) => {
-  const submit = () => {
+  const [num, setNum] = useState(null);
+  const { state, dispatch } = useContext(UserContext);
+
+  let data = null;
+  const formatNumber = (num) => {
+    const first = num.slice(0, 3);
+    const second = num.slice(3, 10);
+    const number = `${first}-${second}`;
+    return number;
+  };
+  const submit = async () => {
     console.log("submitted");
+    // context.setData({ number: formatNumber(num)});
+    await dispatch({ type: ADD_PHONENUMBER, phoneNumber: formatNumber(num) });
+    data = formatNumber(num);
+    console.log(data);
+    // setNum(formatNumber(num));
+    sendOTP(data);
+    navigation.navigate("Verification");
   };
   return (
     <View style={styles.container}>
@@ -22,10 +44,10 @@ const Login = ({ navigation }) => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       > */}
       <View style={styles.switch}>
-        <TouchableOpacity >
-          <Text style={styles.text}>Sign up</Text>
+        <TouchableOpacity>
+          <Text style={[styles.text, styles.borderBottom]}>Sign up</Text>
         </TouchableOpacity>
-        <TouchableOpacity >
+        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
           <Text style={styles.text}>Log in</Text>
         </TouchableOpacity>
       </View>
@@ -34,7 +56,7 @@ const Login = ({ navigation }) => {
           <TextInput
             placeholder='email address'
             keyboardType='email'
-            maxLength={10}
+            // maxLength={10}
             style={styles.inputEmail}
           />
           <View style={styles.containerInput}>
@@ -46,10 +68,12 @@ const Login = ({ navigation }) => {
               keyboardType='numeric'
               maxLength={10}
               style={styles.input}
+              value={num}
+              onChangeText={(e) => setNum(e)}
             />
           </View>
           <Text style={{ opacity: 0.5, marginTop: 20 }}>
-            Log in with your phone number
+            Sign up with your phone number
           </Text>
           <View style={styles.viewButton}>
             <TouchableOpacity onPress={submit} style={styles.loginButton}>
@@ -83,6 +107,10 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     // fontWeight: "bold",
   },
+  borderBottom: {
+    borderColor: "#ffffff",
+    borderBottomWidth: 3,
+  },
   containerLogin: {
     backgroundColor: "white",
     flex: 0.8,
@@ -104,11 +132,13 @@ const styles = StyleSheet.create({
     borderColor: "grey",
     borderBottomWidth: 1,
     marginTop: 20,
+    fontSize: 18,
   },
   input: {
     width: "50%",
     borderColor: "grey",
     borderBottomWidth: 1,
+    fontSize: 20,
   },
   viewButton: {
     height: 50,
