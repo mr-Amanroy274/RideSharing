@@ -7,17 +7,17 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 //import files
 import GetStarted from "./src/pages/GetStarted";
-import Mode from "./src/pages/Mode";
+// import Mode from "./src/pages/Mode";
 import Signup from "./src/pages/Signup";
 import Login from "./src/pages/Login";
 import Verification from "./src/pages/Verification";
 import { UserContext } from "./src/context/UserContext";
 import reducer from "./src/context/Reducer";
-import MapScreen from "./src/pages/MapScreen";
-import Form from "./src/pages/Form";
-import VehicleOption from "./src/pages/VehicleOption";
-import OfferRideScreen from "./src/pages/OfferRideScreen";
-import LicenseRegistration from "./src/pages/LicenseRegistration";
+// import MapScreen from "./src/pages/MapScreen";
+// import Form from "./src/pages/Form";
+// import VehicleOption from "./src/pages/VehicleOption";
+// import OfferRideScreen from "./src/pages/OfferRideScreen";
+// import LicenseRegistration from "./src/pages/LicenseRegistration";
 
 const Stack = createNativeStackNavigator();
 
@@ -48,11 +48,11 @@ export default function App() {
             component={GetStarted}
             options={{ title: "get started", headerBackTitle: "" }}
           />
-          <Stack.Screen
+          {/* <Stack.Screen
             name='Mode'
             component={Mode}
             options={{ title: "mode", headerBackTitle: "" }}
-          />
+          /> */}
           <Stack.Screen
             name='Signup'
             component={Signup}
@@ -68,7 +68,7 @@ export default function App() {
             component={Verification}
             options={{ title: "Verification", headerBackTitle: "" }}
           />
-          <Stack.Screen
+          {/* <Stack.Screen
             name='MapScreen'
             component={MapScreen}
             options={{ title: "MapScreen", headerBackTitle: "" }}
@@ -92,7 +92,7 @@ export default function App() {
             name='LicenseRegistration'
             component={LicenseRegistration}
             options={{ title: "LicenseRegistration", headerBackTitle: "" }}
-          />
+          /> */}
         </Stack.Navigator>
         {/* <GetStarted /> */}
         <StatusBar style='auto' />

@@ -7,7 +7,7 @@
     "icon": "./assets/car.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/images.jpeg",
+      "image": "./assets/images.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
