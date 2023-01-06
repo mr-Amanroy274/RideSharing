@@ -14,7 +14,7 @@ const Splash = () => {
   //     }).start();
   //   }, [])
   return (
-    <View style={{flex:1,backgroundColor:'white'}}>
+    <View style={{ flex: 1, backgroundColor: "white" }}>
       <Lottie
         source={require("../../assets/olympic-athlete.json")}
         //   progress={animationProgress.current}
