@@ -1,0 +1,78 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\erewh\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add react-native-svg0
+
+PATH: 
+  C:\Users\erewh\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\erewh\bin;C:\Program Files\Microsoft\jdk-11.0.17.8-hotspot\bin;C:\Program Files\Eclipse Adoptium\jdk-8.0.345.1-hotspot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\ProgramData\chocolatey\bin;C:\tools\winfetch;C:\Program Files\dotnet;C:\Android;C:\Program Files\Git\cmd;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit;C:\Program Files\nodejs;C:\Program Files (x86)\Microsoft SQL Server\150\DTS\Binn;C:\Program Files\Azure Data Studio\bin;C:\Program Files (x86)\Microsoft SQL Server\160\Tools\Binn;C:\Program Files\Microsoft SQL Server\160\Tools\Binn;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn;C:\Program Files\Microsoft SQL Server\160\DTS\Binn;C:\Users\erewh\AppData\Local\Android\Sdk\platform-tools;C:\Users\erewh\AppData\Local\Android\Sdk\tools;C:\Users\erewh\AppData\Local\Programs\Python\Python310\Scripts;C:\Users\erewh\AppData\Local\Programs\Python\Python310;C:\Program Files\MySQL\MySQL Shell 8.0\bin;C:\Users\erewh\AppData\Local\Microsoft\WindowsApps;C:\Users\erewh\AppData\Local\Programs\Microsoft VS Code\bin;C:\MinGW\bin;C:\Users\erewh\AppData\Roaming\npm;C:\Users\erewh\.dotnet\tools;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  18.12.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/react-native-svg0: Not found
+      at params.callback [as _callback] (C:\Users\erewh\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66145:18)
+      at self.callback (C:\Users\erewh\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140890:22)
+      at Request.emit (node:events:513:28)
+      at Request.<anonymous> (C:\Users\erewh\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141862:10)
+      at Request.emit (node:events:513:28)
+      at IncomingMessage.<anonymous> (C:\Users\erewh\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141784:12)
+      at Object.onceWrapper (node:events:627:28)
+      at IncomingMessage.emit (node:events:525:35)
+      at endReadableNT (node:internal/streams/readable:1359:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+
+npm manifest: 
+  {
+    "name": "ride-sharing-npm",
+    "version": "1.0.0",
+    "scripts": {
+      "start": "expo start --dev-client",
+      "android": "expo run:android",
+      "ios": "expo run:ios",
+      "web": "expo start --web"
+    },
+    "dependencies": {
+      "@expo/webpack-config": "^0.17.2",
+      "@fortawesome/free-regular-svg-icons": "^6.3.0",
+      "@fortawesome/free-solid-svg-icons": "^6.3.0",
+      "@fortawesome/react-native-fontawesome": "^0.3.0",
+      "@react-native-async-storage/async-storage": "^1.17.11",
+      "@react-navigation/material-bottom-tabs": "^6.2.13",
+      "@react-navigation/material-top-tabs": "^6.6.0",
+      "@react-navigation/native": "^6.1.4",
+      "@react-navigation/native-stack": "^6.9.10",
+      "@rneui/themed": "^4.0.0-rc.7",
+      "axios": "^1.3.3",
+      "expo": "~47.0.12",
+      "expo-location": "^15.0.1",
+      "expo-splash-screen": "~0.17.5",
+      "expo-status-bar": "~1.4.2",
+      "react": "18.1.0",
+      "react-dom": "18.1.0",
+      "react-native": "0.70.5",
+      "react-native-gesture-handler": "^2.9.0",
+      "react-native-google-places-autocomplete": "^2.5.1",
+      "react-native-maps": "^1.4.0",
+      "react-native-maps-directions": "^1.9.0",
+      "react-native-vector-icons": "^9.2.0",
+      "react-native-web": "~0.18.9",
+      "react-navigation": "^4.4.4",
+      "react-native-screens": "~3.18.0",
+      "react-native-safe-area-context": "4.4.1"
+    },
+    "devDependencies": {
+      "@babel/core": "^7.12.9"
+    },
+    "private": true
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
