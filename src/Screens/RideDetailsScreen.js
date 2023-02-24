@@ -1,9 +1,9 @@
 import { Text } from "@rneui/themed";
 import React from "react";
-import { Dimensions, Image, TouchableOpacity, View } from "react-native";
+import { Alert, TouchableOpacity, View } from "react-native";
 import Spacer from "../Components/Spacer";
 
-const RideDetailsScreen = () => {
+const RideDetailsScreen = ({navigation}) => {
   return (
     <>
       <View>
@@ -34,7 +34,10 @@ const RideDetailsScreen = () => {
             marginHorizontal: 20,
             borderRadius: 5,
             elevation: 5
-          }}>
+          }} onPress={()=>Alert.alert('Ride Booked','You will be notified shortly',[{
+            text : 'Ok',
+            onPress:() => navigation.navigate('Authenticated', {screen:"Bike"})
+          }])}>
             <Text style={{
               textAlign: 'center',
               fontSize: 20,

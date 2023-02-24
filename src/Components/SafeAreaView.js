@@ -11,8 +11,7 @@ const SafeAreaView = ({children}) => {
 
 const styles = StyleSheet.create({
     SafeArea: {
-        flex: 1,
-        marginTop: StatusBar.currentHeight
+        flex: 1
     }
 })
 

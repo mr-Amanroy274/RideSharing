@@ -21,9 +21,9 @@ const GettingStartedScreen = ({ navigation }) => {
         </Spacer>
       </View>
       <View style={styles.screen}>
-        <Button onPress={() => navigation.navigate("Authenticate", {screen: 'Signup'})}>Get Started</Button>
+        <Button onPress={() => navigation.navigate("AuthenticationTabs", {screen: 'Signup'})}>Get Started</Button>
         <Spacer>
-          <TouchableOpacity onPress={() => navigation.navigate("Authenticate", {screen: 'Signin'})}>
+          <TouchableOpacity onPress={() => navigation.navigate("AuthenticationTabs", {screen: 'Signin'})}>
             <Text>Already have an account? Sign in here</Text>
           </TouchableOpacity>
         </Spacer>

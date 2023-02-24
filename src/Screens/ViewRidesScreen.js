@@ -9,9 +9,9 @@ const ViewRidesScreen = ({navigation}) => {
     <>
       <FlatList
         data={Data}
-        keyExtractor={item=> item.id}
         renderItem={({ item }) => (
           <Rides
+          key={item.id}
             origin={item.Origin}
             destination={item.Destination}
             date={item.Date}

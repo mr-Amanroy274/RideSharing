@@ -3,7 +3,7 @@ import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 
 
-const Question = ({question, ownsPrivateVehicle,navigation}) => {
+const Question = ({question, ownsPrivateVehicle,navigation, signUp}) => {
   return (
     <>
       <View style={styles.questionSet}>
@@ -14,7 +14,9 @@ const Question = ({question, ownsPrivateVehicle,navigation}) => {
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.button, styles.no]}
-            onPress={()=> navigation.navigate('Authenticated')}
+            onPress={()=> {
+              signUp()
+              navigation.navigate('Authenticated')}}
           >
             <Text style={styles.buttonText}>No</Text>
           </TouchableOpacity>

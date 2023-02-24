@@ -1,15 +1,39 @@
 import React from "react";
-import { StyleSheet, View, Button, Dimensions, Text,TouchableOpacity } from "react-native";
+import { Alert } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import { Context as AuthContext } from "../Context/AuthContext";
 
-const SearchContainer = ({ setOrigin, setDestination, navigation }) => {
+const SearchContainer = ({
+  setOrigin,
+  setDestination,
+  setDestinationPlaceId,
+  setOriginPlaceId,
+  handleSearch, 
+  handleOfferRide,
+  originRef,
+  setDestinationName,
+  setOriginName,
+}) => {
+  const { state } = React.useContext(AuthContext);
+
+  
+
   return (
     <View style={styles.searchContainer}>
       <GooglePlacesAutocomplete
-        placeholder="Pickup Point"
+      ref={originRef}
+        placeholder="Origin Point"
         fetchDetails
         onPress={(data, details = null) => {
           setOrigin(details.geometry.location);
+          setOriginPlaceId(details.place_id);
+          setDestinationName(details.formatted_address);
         }}
         query={{
           key: "AIzaSyDzcaRNKL8ggNx9ILX-RAJb9HmOqdSv0XE",
@@ -18,10 +42,12 @@ const SearchContainer = ({ setOrigin, setDestination, navigation }) => {
         }}
       />
       <GooglePlacesAutocomplete
-        placeholder="Drop Point"
+        placeholder="Destination Point"
         fetchDetails
         onPress={(data, details = null) => {
           setDestination(details.geometry.location);
+          setDestinationPlaceId(details.place_id);
+          setOriginName(details.formatted_address);
         }}
         query={{
           key: "AIzaSyDzcaRNKL8ggNx9ILX-RAJb9HmOqdSv0XE",
@@ -30,10 +56,10 @@ const SearchContainer = ({ setOrigin, setDestination, navigation }) => {
         }}
       />
       <View style={styles.buttonContainer}>
-        <TouchableOpacity  style={styles.button} onPress={() => navigation.navigate('CarRides')}>
-          <Text style={styles.buttonText} >View Rides</Text>
+        <TouchableOpacity style={styles.button} onPress={handleSearch}>
+          <Text style={styles.buttonText}>View Rides</Text>
         </TouchableOpacity>
-        <TouchableOpacity  style={[styles.button, styles.offerRide]}>
+        <TouchableOpacity style={[styles.button, styles.offerRide]} onPress={handleOfferRide}>
           <Text style={styles.buttonText}>Offer Rides</Text>
         </TouchableOpacity>
       </View>
@@ -65,9 +91,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: "center",
   },
-  offerRide:{
-    backgroundColor:'#00FF66'
-  }
+  offerRide: {
+    backgroundColor: "#00FF66",
+  },
 });
 
 export default SearchContainer;

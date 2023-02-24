@@ -1,18 +1,11 @@
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
-import Map from "../Components/Map";
-import SearchButton from "../Components/SearchButton";
-import SearchContainer from "../Components/SearchContainer";
+import RideScreen from "../Components/RideScreen";
 
-const BikeScreen = () => {
-  const [destination, setDestination] = useState(null);
-  const [origin, setOrigin] = useState(null);
-  const [searchContainerState, setSearchContainerState] = useState(false);
+const BikeScreen = ({navigation}) => {
   return (
     <>
-      <Map destination={destination} origin={origin} /> 
-      <SearchButton vehicleType='Bike' displaySearchContainer={setSearchContainerState} searchContainerState={searchContainerState}/>
-      {searchContainerState && <SearchContainer setDestination={setDestination} setOrigin={setOrigin} />}
+      <RideScreen navigation={navigation} incomingVehicleType="Bike" />
     </>
   );
 };

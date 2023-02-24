@@ -12,6 +12,8 @@ import SignUpScreen from "./src/Screens/SignUpScreen";
 import BikeScreen from "./src/Screens/BikeScreen";
 import CarScreen from "./src/Screens/CarScreen";
 import SettingsScreen from "./src/Screens/SettingsScreen";
+import ViewRidesScreen from "./src/Screens/ViewRidesScreen";
+import RideDetailsScreen from "./src/Screens/RideDetailsScreen";
 
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -22,12 +24,29 @@ import { faMotorcycle } from "@fortawesome/free-solid-svg-icons/faMotorcycle";
 
 import { setNavigator } from "./src/navigationRef";
 import { Provider as AuthProvider } from "./src/Context/AuthContext";
-import ViewRidesScreen from "./src/Screens/ViewRidesScreen";
-import RideDetailsScreen from "./src/Screens/RideDetailsScreen";
+import { Provider as LocationProvider } from "./src/Context/LocationContext";
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialTopTabNavigator();
 const TabBottom = createMaterialBottomTabNavigator();
+
+const UnAuthenticatedStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Getting Started"
+        component={GettingStartedScreen}
+        options={{ title: null, headerShown: false }}
+      />
+      <Stack.Screen
+        name="AuthenticationTabs"
+        component={AuthenticationTabs}
+        options={{ title: null, headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+};
 
 const AuthenticationTabs = () => {
   return (
@@ -63,27 +82,49 @@ const AuthenticationTabs = () => {
   );
 };
 
-const CarTabScreen = () => {
-  return(
+const CarStackScreen = () => {
+  return (
     <Stack.Navigator>
-        <Stack.Screen 
-          name="CarScreen"
-          component={CarScreen}
-          options={{title: null, headerShown: false}}
-        />
-        <Stack.Screen
-          name="CarRides"
-          component={ViewRidesScreen}
-          options={{title: 'Available Rides'}}
-        />
-        <Stack.Screen
-          name="CarRidesDetails"
-          component={RideDetailsScreen}
-          options={{title:'Details'}}
-        />
+      <Stack.Screen
+        name="CarScreen"
+        component={CarScreen}
+        options={{ title: null, headerShown: false }}
+      />
+      <Stack.Screen
+        name="CarRides"
+        component={ViewRidesScreen}
+        options={{ title: "Available Rides" }}
+      />
+      <Stack.Screen
+        name="CarRidesDetails"
+        component={RideDetailsScreen}
+        options={{ title: "Details" }}
+      />
     </Stack.Navigator>
-  )
-}
+  );
+};
+
+const BikeStackScreen = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="BikeScreen"
+        component={BikeScreen}
+        options={{ title: null, headerShown: false }}
+      />
+      <Stack.Screen
+        name="CarRides"
+        component={ViewRidesScreen}
+        options={{ title: "Available Rides" }}
+      />
+      <Stack.Screen
+        name="CarRidesDetails"
+        component={RideDetailsScreen}
+        options={{ title: "Details" }}
+      />
+    </Stack.Navigator>
+  );
+};
 
 const AuthenticatedTabs = () => {
   return (
@@ -111,12 +152,12 @@ const AuthenticatedTabs = () => {
     >
       <TabBottom.Screen
         name="Bike"
-        component={BikeScreen}
+        component={BikeStackScreen}
         options={{ title: "Bike" }}
       />
       <TabBottom.Screen
         name="Car"
-        component={CarTabScreen}
+        component={CarStackScreen}
         options={{ title: "Car" }}
       />
       <TabBottom.Screen
@@ -134,13 +175,8 @@ const App = () => {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
-            name="Getting Started"
-            component={GettingStartedScreen}
-            options={{ title: null, headerShown: false }}
-          />
-          <Stack.Screen
-            name="Authenticate"
-            component={AuthenticationTabs}
+            name="Unauthenticated"
+            component={UnAuthenticatedStack}
             options={{ title: null, headerShown: false }}
           />
           <Stack.Screen
@@ -154,10 +190,9 @@ const App = () => {
   );
 };
 
-
-
 export default () => {
   return (
+    <LocationProvider>
     <AuthProvider>
       <App>
         ref=
@@ -166,5 +201,6 @@ export default () => {
         }}
       </App>
     </AuthProvider>
+    </LocationProvider>
   );
 };

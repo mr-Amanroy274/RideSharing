@@ -25,16 +25,15 @@ const authReducer = (state, action) => {
 const clearErrorMessage = (dispatch) => () =>
   dispatch({ type: "clear_error_message" });
 
+
 const signup =
   (dispatch) =>
-  async ({ email, password }) => {
+  async ({ phone, firstName, lastName, dateOfBirth, currentAddress,isRider }) => {
     try {
-      const response = await BackEnd.post("/signup", { email, password, phone });
+      const response = await BackEnd.post("/signup/user", { phone, firstName, lastName, dateOfBirth, currentAddress,isRider });
       await AsyncStorage.setItem("token", response.data.token);
       dispatch({ type: "signin", payload: response.data.token });
 
-      //navigate to mainFLow
-      navigateTo("TrackList");
     } catch (error) {
       console.log(error);
       dispatch({
@@ -46,13 +45,12 @@ const signup =
 
 const signin =
   (dispatch) =>
-  async ({ email, password }) => {
+  async ({ phone }) => {
     try {
-      const response = await BackEnd.post("/signin", { email, password });
+      const response = await BackEnd.post("/signin", { phone });
       await AsyncStorage.setItem("token", response.data.token);
       dispatch({ type: "signin", payload: response.data.token });
 
-      navigateTo("TrackList");
     } catch (error) {
       dispatch({
         type: "add_error",
