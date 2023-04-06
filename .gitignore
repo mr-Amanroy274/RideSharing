@@ -1,0 +1,20 @@
+android/
+.vscode/
+node_modules/
+.expo/
+dist/
+npm-debug.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+src/GoogleAPIKEY.js
+*.log
+*.lock
+package-lock.json
+
+# macOS
+.DS_Store
