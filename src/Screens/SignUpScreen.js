@@ -48,7 +48,7 @@ const SignUpScreen = ({ navigation }) => {
       Alert.alert("Invalid OTP");
     }
   };
-
+  
 
   const onChange = (event, selectedDate) => {
     setShow(false);
