@@ -19,7 +19,7 @@ const BikeScreen = ({ navigation, incomingVehicleType, addRides }) => {
   const [vehicleType, setVehicleType] = useState(incomingVehicleType || null);
   const [departureDate, setDepartureDate] = useState(new Date());
   const [departureTime, setDepartureTime] = useState(new Date());
-
+  
 
   const [searchContainerState, setSearchContainerState] = useState(false);
   const { saveRide, searchRides } = React.useContext(LocationContext);

@@ -20,3 +20,5 @@ urlpatterns = [
     path('ridesharing/', include('RideSharing.urls')),
     path('admin/', admin.site.urls),
 ]
+
+
