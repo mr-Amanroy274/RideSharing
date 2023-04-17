@@ -197,3 +197,45 @@ def getPhotoUrl(request):
     return Response({
         "source": url
     })
+
+
+
+
+
+@api_view(['GET'])
+def getPhotoUrl(request):
+    data = request.data
+    #do something to get user data in user
+    user = None
+    #to get image url do the following
+    url = user.user_profile.url
+    return Response({
+        "source": url
+    })
+
+
+
+
+@api_view(['GET'])
+def getPhotoUrl(request):
+    data = request.data
+    #do something to get user data in user
+    user = None
+    #to get image url do the following
+    url = user.user_profile.url
+    return Response({
+        "source": url
+    })
+
+
+
+@api_view(['GET'])
+def getPhotoUrl(request):
+    data = request.data
+    #do something to get user data in user
+    user = None
+    #to get image url do the following
+    url = user.user_profile.url
+    return Response({
+        "source": url
+    })
