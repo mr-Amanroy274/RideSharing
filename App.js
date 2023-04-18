@@ -255,3 +255,19 @@ export default () => {
     </LocationProvider>
   );
 };
+
+
+import GettingStartedScreen from "./src/Screens/GettingStartedScreen";
+import SafeAreaView from "./src/Components/SafeAreaView";
+import SignInScreen from "./src/Screens/SignInScreen";
+import SignUpScreen from "./src/Screens/SignUpScreen";
+import BikeScreen from "./src/Screens/BikeScreen";
+import CarScreen from "./src/Screens/CarScreen";
+import SettingsScreen from "./src/Screens/SettingsScreen";
+import ViewRidesScreen from "./src/Screens/ViewRidesScreen";
+import RideDetailsScreen from "./src/Screens/RideDetailsScreen";
+import MyRideBookedScreen from "./src/Screens/MyBookedRideScreen";
+import MyOfferedRideScreen from "./src/Screens/MyOfferedRideScreen";
+import DriverSignUp from "./src/Screens/DriverSignUp";
+import RideHistoryScreen from "./src/Screens/RideHistoryScreen";
+
