@@ -1,3 +1,4 @@
+// Importing some library of React 
 import React from "react";
 import {
   StyleSheet,
@@ -84,8 +85,8 @@ const styles = StyleSheet.create({
     padding: 12,
     paddingHorizontal: 30,
     backgroundColor: "#3AEFE4",
-    borderRadius: 12,
-    elevation: 2,
+    borderRadius: 15,
+    elevation: 3,
   },
   buttonText: {
     fontWeight: "600",
