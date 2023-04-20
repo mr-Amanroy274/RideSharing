@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
       marginVertical: 30
     },
     question: {
-      fontSize: 30,
+      fontSize: 25,
       fontWeight: "800",
     },
     buttonContainer: {
@@ -46,14 +46,14 @@ const styles = StyleSheet.create({
     },
     button: {
       padding: 12,
-      paddingHorizontal: 30,
+      paddingHorizontal: 25,
       backgroundColor: "#00FF78",
       borderRadius: 12,
       elevation: 2,
     },
     buttonText: {
       fontWeight: "600",
-      fontSize: 20,
+      fontSize: 25,
       textAlign: "center",
       color: "white",
     },
