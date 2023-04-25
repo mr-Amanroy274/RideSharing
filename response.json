@@ -4,7 +4,7 @@
       {
         "address_components":
           [
-            { "long_name": "48", "short_name": "48", "types": ["street_number"] },
+            { "long_name": "45", "short_name": "48", "types": ["street_numbers"] },
             {
               "long_name": "Pirrama Road",
               "short_name": "Pirrama Rd",
@@ -27,16 +27,16 @@
             },
             {
               "long_name": "Australia",
-              "short_name": "AU",
+              "short_name": "AUS",
               "types": ["country", "political"]
             },
             {
-              "long_name": "2009",
-              "short_name": "2009",
+              "long_name": "2008",
+              "short_name": "2008",
               "types": ["postal_code"]
             }
           ],
-        "adr_address": "<span class='street-address'>48 Pirrama Rd</span>, <span class='locality'>Pyrmont</span> <span class='region'>NSW</span> <span class='postal-code'>2009</span>, <span class='country-name'>Australia</span>",
+        "adr_address": "<span class='street-address'>45 Pirrama Rd</span>, <span class='locality'>Pyrmont</span> <span class='region'>NSW</span> <span class='postal-code'>2009</span>, <span class='country-name'>Australia</span>",
         "business_status": "OPERATIONAL",
         "formatted_address": "48 Pirrama Rd, Pyrmont NSW 2009, Australia",
         "formatted_phone_number": "(02) 9374 4000",
@@ -84,11 +84,11 @@
               ],
             "weekday_text":
               [
-                "Monday: 9:00 AM – 5:00 PM",
-                "Tuesday: 9:00 AM – 5:00 PM",
-                "Wednesday: 9:00 AM – 5:00 PM",
-                "Thursday: 9:00 AM – 5:00 PM",
-                "Friday: 9:00 AM – 5:00 PM",
+                "Monday: 9:00 AM – 6:00 PM",
+                "Tuesday: 9:00 AM – 6:00 PM",
+                "Wednesday: 9:00 AM – 6:00 PM",
+                "Thursday: 9:00 AM – 6:00 PM",
+                "Friday: 9:00 AM – 6:00 PM",
                 "Saturday: Closed",
                 "Sunday: Closed"
               ]
