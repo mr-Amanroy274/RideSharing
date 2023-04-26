@@ -113,7 +113,7 @@ const BikeScreen = ({ navigation, incomingVehicleType, addRides }) => {
           ]
         );
       else {
-        Alert.alert("Please enter origin and destination");
+        Alert.alert(" Enter origin and destination point ");
       }
     }
   };
