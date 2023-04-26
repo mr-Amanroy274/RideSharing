@@ -3,22 +3,33 @@ import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 
 
-const Question = ({question, ownsPrivateVehicle,navigation, signUp}) => {
+const Question = ({question, ownsPrivateVehicle,navigation, signUp, lastQuestion}) => {
   return (
     <>
       <View style={styles.questionSet}>
         <Text style={styles.question}>{question}</Text>
         <View style={styles.buttonContainer}>
 
-          <TouchableOpacity style={styles.button} onPress={()=>ownsPrivateVehicle(true)}>
+          <TouchableOpacity 
+            style={styles.button} 
+            onPress={()=>{
+              ownsPrivateVehicle(true)
+              lastQuestion?signUp:null
+            }}
+          >
             <Text style={[styles.buttonText, styles.yesText]}>Yes</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={[styles.button, styles.no]}
             onPress={()=> {
-              signUp()
-              navigation.navigate('Authenticated')}}
+              if(!lastQuestion){
+                console.log('signup function called')
+              // signUp();
+              
+              navigation.navigate('Authenticated')
+            }
+            }}
           >
             <Text style={styles.buttonText}>No</Text>
           </TouchableOpacity>
@@ -37,7 +48,7 @@ const styles = StyleSheet.create({
       marginVertical: 30
     },
     question: {
-      fontSize: 25,
+      fontSize: 30,
       fontWeight: "800",
     },
     buttonContainer: {
@@ -46,14 +57,14 @@ const styles = StyleSheet.create({
     },
     button: {
       padding: 12,
-      paddingHorizontal: 25,
+      paddingHorizontal: 30,
       backgroundColor: "#00FF78",
       borderRadius: 12,
       elevation: 2,
     },
     buttonText: {
       fontWeight: "600",
-      fontSize: 25,
+      fontSize: 20,
       textAlign: "center",
       color: "white",
     },
