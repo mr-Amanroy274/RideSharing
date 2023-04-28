@@ -28,7 +28,6 @@ const DetailCard = ({
   );
 };
 
-// Setting default values for the card
 DetailCard.defaultProps = {
     firstLabel:"",
     secondLabel:"",
