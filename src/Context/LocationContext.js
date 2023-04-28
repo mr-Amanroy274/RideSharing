@@ -15,10 +15,34 @@ const locationReducer = (state, action) => {
 };
 
 const searchRides = (dispatch) => {
-  return async ({destination, origin, destinationName, destinationPlaceId, originName, originPlaceId, vehicleType}) => {
+  return async ({
+    destination,
+    origin,
+    destinationName,
+    destinationPlaceId,
+    originName,
+    originPlaceId,
+    vehicleType,
+  }) => {
     try {
-      console.log({ destination, origin, destinationName, destinationPlaceId, originName, originPlaceId, vehicleType })
-      const response = await BackEnd.post("/searchRides", { destination, origin, destinationName, destinationPlaceId, originName, originPlaceId, vehicleType });
+      console.log({
+        destination,
+        origin,
+        destinationName,
+        destinationPlaceId,
+        originName,
+        originPlaceId,
+        vehicleType,
+      });
+      const response = await BackEnd.post("/searchRides", {
+        destination,
+        origin,
+        destinationName,
+        destinationPlaceId,
+        originName,
+        originPlaceId,
+        vehicleType,
+      });
       dispatch({ type: "search_rides", payload: response.data });
     } catch (error) {
       dispatch({
@@ -39,11 +63,10 @@ const saveRide = (dispatch) => {
     destinationName,
     originName,
     date,
-    time
+    time,
   }) => {
     try {
-      console.log({destination, origin, destinationPlaceId, originPlaceId, vehicleType, destinationName, originName})
-      const response = await BackEnd.post("/addRide", {
+      console.log({
         destination,
         origin,
         destinationPlaceId,
@@ -54,6 +77,19 @@ const saveRide = (dispatch) => {
         date,
         time
       });
+      const response = await BackEnd.post("/addRide", {
+        destination,
+        origin,
+        destinationPlaceId,
+        originPlaceId,
+        vehicleType,
+        destinationName,
+        originName,
+        date,
+        time,
+      });
+
+      console.log(response.data);
 
       dispatch({ type: "add_ride", payload: response.data });
     } catch (error) {
